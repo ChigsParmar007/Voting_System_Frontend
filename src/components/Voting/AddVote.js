@@ -1,9 +1,11 @@
 import styled from '@emotion/styled'
 import { Box, Button, CardActions, CardContent, Grid, Paper, Typography } from '@mui/material'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,6 +19,7 @@ const AddVote = () => {
     const { electionId } = useParams()
     const [item, setItem] = useState()
     const { token } = useSelector(state => state.user)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,13 +32,25 @@ const AddVote = () => {
     }, [electionId])
 
     const onClickHandler = async (id) => {
-        const response = await axios.patch(`http://127.0.0.1:5000/api/result/addvote/${electionId}`, {}, {
-            headers: {
-                Authorization: `Bearer ${token}`
+        try {
+            const response = await axios.patch(`http://127.0.0.1:5000/api/result/addvote/${electionId}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const data = await response.data
+            console.log(data)
+            if (data.message === 'Vote added Successfully') {
+                toast.success('Vote added Successfully')
             }
-        })
-        const data = await response.data
-        console.log(data)
+            else {
+                toast.error('Something went wrong')
+            }
+        }
+        catch (error) {
+            toast.error(error.response.data.message)
+        }
+        navigate('/')
     }
 
     return (

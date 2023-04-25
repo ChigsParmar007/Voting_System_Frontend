@@ -12,7 +12,6 @@ import DnsRoundedIcon from '@mui/icons-material/DnsRounded'
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import InfoIcon from '@mui/icons-material/Info';
 import LogoutIcon from '@mui/icons-material/Logout'
-import HowToVoteSharpIcon from '@mui/icons-material/HowToVoteSharp';
 import AccountBoxSharpIcon from '@mui/icons-material/AccountBoxSharp';
 import { useNavigate } from 'react-router-dom'
 import { signoutUser } from '../../store/userSlice'
@@ -22,10 +21,10 @@ const categories = [
     {
         id: 'Vote',
         children: [
-            { id: 'Profile', icon: <AccountBoxSharpIcon /> },
+            // { id: 'Profile', icon: <AccountBoxSharpIcon /> },
             { id: 'Results', icon: <DnsRoundedIcon /> },
-            { id: 'ContactUs', icon: <ContactPageIcon /> },
-            { id: 'AboutUs', icon: <InfoIcon /> },
+            // { id: 'ContactUs', icon: <ContactPageIcon /> },
+            // { id: 'AboutUs', icon: <InfoIcon /> },
             { id: 'Logout', icon: <LogoutIcon /> }
         ]
     }
@@ -76,7 +75,7 @@ const Navigator = (props) => {
                     <ListItemIcon>
                         <HomeIcon />
                     </ListItemIcon>
-                    <ListItemText>Home</ListItemText>
+                    <ListItemText>Give Vote</ListItemText>
                 </ListItem>
                 {
                     categories.map(({ id, children }) => (
